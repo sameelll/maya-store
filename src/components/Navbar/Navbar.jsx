@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, IconButton, Badge, Typography } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
 
-import logo from '../../assets/logo.jpg'
+import logo from '../../assets/logo.png'
 import useStyles from './styles';
 
 const Navbar = () => {
@@ -24,7 +24,6 @@ const Navbar = () => {
                         </IconButton>
                     </div>
                 </Toolbar>
-
             </AppBar>
         </div>
     );
