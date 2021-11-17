@@ -1,7 +1,8 @@
 import './App.css';
 import { commerce } from './lib/commerce';
 // Components are imported from components folder with index.js exports
-import { Products, Navbar } from './components';
+import { Products, Navbar, Cart } from './components';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Hooks
 import { useState, useEffect } from 'react';
@@ -18,7 +19,7 @@ function App() {
   };
 
   // Fetching the cart
-  const fetchCart = async () => {
+  const fetchCart = async () => { 
     setCart(await commerce.cart.retrieve());
   };
 
@@ -33,13 +34,18 @@ function App() {
     fetchCart();
   }, []);
 
-  console.log(cart)
+  console.log(cart);
 
   return (
-    <div className="App">
-      <Navbar total_items={cart.total_items} />
-      <Products products={products} handleAddCart={handleAddCart}/>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar totalItems={cart.total_items} />
+        <Routes>
+          <Route exact path="/" element={<Products products={products} handleAddCart={handleAddCart}/>} />
+          <Route exact path="/cart" element={<Cart cart={cart} />} />
+        </Routes>           
+      </div>
+    </Router>
   );
 }
 
