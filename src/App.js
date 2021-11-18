@@ -1,7 +1,7 @@
 import './App.css';
 import { commerce } from './lib/commerce';
 // Components are imported from components folder with index.js exports
-import { Products, Navbar, Cart } from './components';
+import { Products, Navbar, Cart, Checkout } from './components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Hooks
@@ -66,7 +66,10 @@ function App() {
               handleUpdateCartQty={ handleUpdateCartQty }
               handleRemoveFromCart={               handleRemoveFromCart }
               handleEmptyCart={               handleEmptyCart }
-              />} />  
+              />} />
+          <Route 
+            exact path="/checkout"
+            element={<Checkout />} />  
         </Routes>           
       </div>
     </Router>

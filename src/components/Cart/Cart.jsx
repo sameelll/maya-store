@@ -6,13 +6,13 @@ import CartItem from "./CartItem/CartItem";
 const Cart = ({ cart, handleUpdateCartQty,handleRemoveFromCart, handleEmptyCart }) => {
     const classes = useStyles(); 
 
-    const EmptyCart = () => {
+    const EmptyCart = () => (
         <Typography variant="subtitle1" >You have no items in your shopping cart, 
             <Link to='/' className={classes.link} >start adding some!</Link>
         </Typography>
-    };
+    );
 
-    const FilledCart = () => {
+    const FilledCart = () => (
         <>
             <Grid container spacing={3}>
                 {cart.line_items.map((item) => (
@@ -33,7 +33,8 @@ const Cart = ({ cart, handleUpdateCartQty,handleRemoveFromCart, handleEmptyCart 
                         type="button" variant="contained" color="secondary"
                         onClick={handleEmptyCart}
                         >Empty Cart</Button>
-                    <Button 
+                    <Button
+                        component={Link} to="/checkout" 
                         className={classes.checkoutButton} 
                         size="large" 
                         type="button" variant="contained" color="primary"
@@ -41,7 +42,7 @@ const Cart = ({ cart, handleUpdateCartQty,handleRemoveFromCart, handleEmptyCart 
                 </div>
             </div>
         </>
-    };
+    );
 
     if(!cart.line_items) return 'Loading...';
 
@@ -51,7 +52,7 @@ const Cart = ({ cart, handleUpdateCartQty,handleRemoveFromCart, handleEmptyCart 
                 <Typography className={classes.title} variant="h3" gutterBottom>
                     Your Shopping Cart
                 </Typography>
-                { !cart.line_items.length ? <EmptyCart /> : <FilledCart /> }
+                { !cart.line_items.length ? EmptyCart() : FilledCart()  }
             </Container>
     );
 }
