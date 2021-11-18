@@ -69,7 +69,7 @@ function App() {
               />} />
           <Route 
             exact path="/checkout"
-            element={<Checkout />} />  
+            element={<Checkout cart={cart} />} />  
         </Routes>           
       </div>
     </Router>
