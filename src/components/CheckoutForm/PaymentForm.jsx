@@ -2,19 +2,19 @@ import { Typography, Button, Divider } from '@material-ui/core';
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-import Review from './Review'
+import Review from './Checkout/Review'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
-const PaymentForm = ({ checkoutToken }) => {
-    const handleSubmit = (event, elements, stripe) => {
+const PaymentForm = ({ checkoutToken, handleCaptureCheckout, backStep, shippingData, nextStep, timeout }) => {
+    const handleSubmit = async (event, elements, stripe) => {
         event.preventDefault();
 
         if(!stripe || !elements) return;
 
         const cardElement = elements.getElement(CardElement);
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement});
+        const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
 
         if(error){
             console.log(error);
@@ -37,6 +37,11 @@ const PaymentForm = ({ checkoutToken }) => {
                     }
                 }
             }
+
+            handleCaptureCheckout(checkoutToken.id, orderData);
+            timeout();
+            nextStep();
+
         }
 
     }
